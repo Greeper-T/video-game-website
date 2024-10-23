@@ -1,11 +1,12 @@
+import { Stack } from 'react-bootstrap';
 import './App.css';
+import VideogameSlider from './components/VideogameSlider';
 
 function App() {
   return (
-    <div className="App">
-      <header className='App-header'>hello</header>
-      <button className='App-header'> ello</button>
-    </div>
+    <Stack direction='horizontal' gap={2} >
+      <VideogameSlider/>
+    </Stack>
   );
 }
 
