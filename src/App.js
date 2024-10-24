@@ -9,9 +9,6 @@ function App() {
       <VideogameSlider/>
       <VideogameSlider/>
       <VideogameSlider/>
-      <VideogameSlider/>
-      <VideogameSlider/>
-      <VideogameSlider/>
     </Stack>
   );
 }
