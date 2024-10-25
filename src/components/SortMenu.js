@@ -1,6 +1,7 @@
 import React from "react";
 import { Dropdown } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
+import { FormGroup, FormControlLabel, Checkbox } from "@mui/material";
 
 //hi
 
@@ -18,9 +19,13 @@ function SortMenu(){
       </Dropdown.Toggle>
 
       <Dropdown.Menu>
-        <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-        <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-        <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+      <FormGroup>
+  <FormControlLabel control={<Checkbox />} label="Nintendo" />
+  <FormControlLabel control={<Checkbox />} label="Play Station" />
+  <FormControlLabel control={<Checkbox />} label="Xbox" />
+  <FormControlLabel control={<Checkbox />} label="PC" />
+  <FormControlLabel control={<Checkbox />} label="Mobile" />
+</FormGroup>
       </Dropdown.Menu>
     </Dropdown>
       </Dropdown.Menu>
