@@ -8,11 +8,7 @@ function App() {
   return (
     <div>
       <SortMenu/>
-      <Stack direction='horizontal' gap={2} >
       <VideogameSlider/>
-      <VideogameSlider/>
-      <VideogameSlider/>
-    </Stack>
     </div>
     
   );

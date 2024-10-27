@@ -1,23 +1,62 @@
-import React from "react";
-import { Button, Card } from 'react-bootstrap'
-import { Form } from "react-bootstrap";
-import tboiImage from  '../assets/tboi.jpg'
-import 'bootstrap/dist/css/bootstrap.min.css'
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
-function VideogameSlider(){
-    return(
-        <Card className="width:8rem p-2 bg-emerald-400">   
-            <Card.Body className="bg-emerald-400">
-                <Card.Title className="bg-emerald-400">The Binding Of Isaac</Card.Title>
-            </Card.Body>
-            <Card.Img variant="top" src={tboiImage}/>
-            <Card.Body className="bg-emerald-400">
-                <Button variant="secondary" href="https://store.steampowered.com/app/1426300/The_Binding_of_Isaac_Repentance/" target="_blank">go to web </Button>
-                <button className="bg-emerald-400"> nooo </button>
-            </Card.Body>
-        </Card>
-    )
+function VideogameSlider() {
+    const [games, setGames] = useState([]);
+    const apiUrl = "https://api.rawg.io/api/games?key=914505b770ea4da29ba05daa4e0899cf";
+
+    useEffect(() => {
+        const fetchGameData = async () => {
+            try {
+                const response = await axios.get(apiUrl);
+                setGames(response.data.results);
+                console.log(response.data.results); // Check the fetched data
+            } catch (error) {
+                console.error("Error fetching game data:", error);
+            }
+        };
+
+        fetchGameData();
+    }, []);
+
+    var settings = {
+        dots: true,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        autoplay:true,
+        autoplaySpeed: 4000,
+        
+    };
+
+    return (
+        <div className="container mx-auto mt-10 px-4">
+            <h1 className="text-3xl font-bold text-center mb-6">Popular Games</h1>
+            {games.length > 0 ? (
+                <Slider {...settings}>
+                    {games.map((game) => (
+                        <div key={game.id} className="bg-white shadow-md rounded-lg overflow-hidden">
+                            <img 
+                                src={game.background_image} 
+                                alt={`${game.name} cover`} 
+                                className="w-full h-48 object-cover"
+                            />
+                            <div className="p-4">
+                                <h5 className="text-xl font-semibold mb-2">{game.name}</h5>
+                                <p className="text-gray-600">Released: {game.released}</p>
+                            </div>
+                        </div>
+                    ))}
+                </Slider>
+            ) : (
+                <p className="text-center">Loading games...</p>
+            )}
+        </div>
+    );
 }
 
 export default VideogameSlider;
-
