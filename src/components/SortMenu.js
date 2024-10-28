@@ -35,7 +35,7 @@ function SortMenu(){
 
       <Dropdown.Menu>
       <FormGroup>
-  <FormControlLabel control={<Checkbox />} label="Action" />
+      <FormControlLabel control={<Checkbox />} label="Action" />
   <FormControlLabel control={<Checkbox />} label="Indie" />
   <FormControlLabel control={<Checkbox />} label="Adventure" />
   <FormControlLabel control={<Checkbox />} label="RPG" />
@@ -57,6 +57,7 @@ function SortMenu(){
 </FormGroup>
       </Dropdown.Menu>
     </Dropdown>
+
       </Dropdown.Menu>
     </Dropdown>
     )
