@@ -61,10 +61,10 @@ function SliderUpcoming() {
             {games.length > 0 ? (
                 <Slider {...settings}>
                     {games.map((game) => (
-                        <Card style={{ width: "10rem"}}>
+                        <Card style={{ width: "10rem"}} className="dark:bg-gray-600">
                             <Card.Img variant="top" src={game.background_image} alt="no image:("/>
                             <Card.Body>
-                                <Card.Title>{game.name}</Card.Title>
+                                <Card.Title className="dark:text-white">{game.name}</Card.Title>
                                 <Card.Text>
                                     {game.released}
                                 </Card.Text>
