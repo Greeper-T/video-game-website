@@ -23,13 +23,23 @@ function SideBarMenu() {
                                     <i className="bi bi-controller"></i>
                                     <span className="ms-2">Console</span>
                                 </Dropdown.Toggle>
-                                <Dropdown.Menu className="bg-light">
-                                    <FormGroup>
-                                        <FormControlLabel control={<Checkbox />} label="Nintendo" />
-                                        <FormControlLabel control={<Checkbox />} label="Play Station" />
-                                        <FormControlLabel control={<Checkbox />} label="Xbox" />
-                                        <FormControlLabel control={<Checkbox />} label="PC" />
-                                        <FormControlLabel control={<Checkbox />} label="Mobile" />
+                                <Dropdown.Menu className="text-white fs-4 bg-dark border-0">
+                                    <FormGroup 
+                                    sx={{
+                                        color: 'primary.main',
+                                        '&.Mui-checked': {
+                                          color: 'primary.main',
+                                        },
+                                        '& .MuiSvgIcon-root': {
+                                          borderRadius: 1, 
+                                          border: '2px solid white', 
+                                        },
+                                      }} className="text-white">
+                                        <FormControlLabel control={<Checkbox />} label="Nintendo"/>
+                                        <FormControlLabel control={<Checkbox />} label="Play Station"/>
+                                        <FormControlLabel control={<Checkbox />} label="Xbox"/>
+                                        <FormControlLabel control={<Checkbox />} label="PC"/>
+                                        <FormControlLabel control={<Checkbox />} label="Mobile"/>
                                     </FormGroup>
                                 </Dropdown.Menu>
                             </Dropdown>
@@ -42,13 +52,41 @@ function SideBarMenu() {
                                     className="text-white fs-4 bg-dark border-0" 
                                     id="consoleDropdown"
                                 >
-                                    <i className="bi bi-controller"></i>
-                                    <span className="ms-2">Console</span>
+                                    <i className="bi bi-joystick"></i>
+                                    <span className="ms-2">Genres</span>
                                 </Dropdown.Toggle>
-                                <Dropdown.Menu className="bg-dark">
-                                    <Dropdown.Item className="text-white" href="#">Option 1</Dropdown.Item>
-                                    <Dropdown.Item className="text-white" href="#">Option 2</Dropdown.Item>
-                                    <Dropdown.Item className="text-white" href="#">Option 3</Dropdown.Item>
+                                <Dropdown.Menu className="text-white fs-4 bg-dark border-0">
+                                <FormGroup
+                                sx={{
+                                    color: 'primary.main',
+                                    '&.Mui-checked': {
+                                      color: 'primary.main',
+                                    },
+                                    '& .MuiSvgIcon-root': {
+                                      borderRadius: 1, 
+                                      border: '2px solid white', 
+                                    },
+                                  }} className="text-white">
+      <FormControlLabel control={<Checkbox />} label="Action" />
+  <FormControlLabel control={<Checkbox />} label="Indie" />
+  <FormControlLabel control={<Checkbox />} label="Adventure" />
+  <FormControlLabel control={<Checkbox />} label="RPG" />
+  <FormControlLabel control={<Checkbox />} label="Strategy" />
+  <FormControlLabel control={<Checkbox />} label="Shooter" />
+  <FormControlLabel control={<Checkbox />} label="Casual" />
+  <FormControlLabel control={<Checkbox />} label="Simulation" />
+  <FormControlLabel control={<Checkbox />} label="Puzzle" />
+  <FormControlLabel control={<Checkbox />} label="Arcade" />
+  <FormControlLabel control={<Checkbox />} label="Platformer" />
+  <FormControlLabel control={<Checkbox />} label="Racing" />
+  <FormControlLabel control={<Checkbox />} label="Massively Multiplayer" />
+  <FormControlLabel control={<Checkbox />} label="Sports" />
+  <FormControlLabel control={<Checkbox />} label="Fighting" />
+  <FormControlLabel control={<Checkbox />} label="Family" />
+  <FormControlLabel control={<Checkbox />} label="Board Games" />
+  <FormControlLabel control={<Checkbox />} label="Educational" />
+  <FormControlLabel control={<Checkbox />} label="Card" />
+</FormGroup>
                                 </Dropdown.Menu>
                             </Dropdown>
                         </li>

@@ -28,9 +28,6 @@ useEffect(() => {
         Switch to {theme === "light" ? "Dark" : "Light"} Mode
       </button>
       <SideBarMenu/>
-      <SortMenu/>
-      <VideogameSlider/>
-      <SliderUpcoming/>
     </div>
     
   );
