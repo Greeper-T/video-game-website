@@ -22,6 +22,28 @@ function VideogameSlider() {
         fetchGameData();
     }, []);
 
+    function SampleNextArrow(props) {
+        const { className, style, onClick } = props;
+        return (
+          <div
+            className={className}
+            style={{ ...style, display: "block", background: "black", borderRadius: "50%" }}
+            onClick={onClick}
+          />
+        );
+    }
+      
+    function SamplePrevArrow(props) {
+        const { className, style, onClick } = props;
+        return (
+          <div
+            className={className}
+            style={{ ...style, display: "block", background: "black", borderRadius: "50%" }}
+            onClick={onClick}
+          />
+        );
+    }
+
     var settings = {
         dots: true,
         infinite: true,
@@ -31,24 +53,25 @@ function VideogameSlider() {
         slidesToScroll: 1,
         autoplay:true,
         autoplaySpeed: 4000,
-        
+        nextArrow: <SampleNextArrow />,
+        prevArrow: <SamplePrevArrow />
     };
 
     return (
         <div className="container mx-auto mt-10 px-4">
-            <h1 className="text-3xl font-bold text-center mb-6">Popular Games</h1>
+            <h1 className="text-3xl font-bold text-center mb-6 dark:text-white">Popular Games</h1>
             {games.length > 0 ? (
                 <Slider {...settings}>
                     {games.map((game) => (
-                        <div key={game.id} className="bg-white shadow-md rounded-lg overflow-hidden">
+                        <div key={game.id} className="bg-white shadow-md rounded-lg overflow-hidden dark:bg-gray-600">
                             <img 
                                 src={game.background_image} 
                                 alt={`${game.name} cover`} 
                                 className="w-full h-48 object-cover"
                             />
-                            <div className="p-4">
-                                <h5 className="text-xl font-semibold mb-2">{game.name}</h5>
-                                <p className="text-gray-600">Released: {game.released}</p>
+                            <div className="p-4 dark:bg-gray-600">
+                                <h5 className="text-xl font-semibold mb-2 dark:text-white">{game.name}</h5>
+                                <p className="text-gray-600 dark:text-white">Released: {game.released}</p>
                             </div>
                         </div>
                     ))}

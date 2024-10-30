@@ -1,11 +1,24 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import VideogameSlider from "./VideogameSlider";
+import SliderUpcoming from "./SliderUpcoming"
 import { Dropdown } from "react-bootstrap";
 import { FormGroup, FormControlLabel, Checkbox } from "@mui/material";
 
 function SideBarMenu() {
+
+const [theme, setTheme] = useState('light');
+
+const toggleTheme = () => {
+  setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
+}
+
+useEffect(() => {
+  document.documentElement.className = theme;
+}, [theme])
+
+
     return (
         <div className="container-fluid">
             <div className="row">
@@ -41,9 +54,9 @@ function SideBarMenu() {
                                         <FormControlLabel control={<Checkbox />} label="PC"/>
                                         <FormControlLabel control={<Checkbox />} label="Mobile"/>
                                     </FormGroup>
-                                </Dropdown.Menu>
-                            </Dropdown>
-                        </li>
+                            </Dropdown.Menu>
+                        </Dropdown>
+                    </li>
                     </ul>
                     <ul className="nav nav-pills flex-column"> 
                     <li className="nav-item">
@@ -92,8 +105,9 @@ function SideBarMenu() {
                         </li>
                     </ul>
                 </div>
-                <div className="col bg-light min-vh-100">
+                <div className="col bg-gray-100 dark:bg-black">
                     <VideogameSlider/>
+                    <SliderUpcoming/>
                 </div>
             </div>
         </div>
