@@ -9,10 +9,7 @@ import { useState, useEffect } from 'react';
 
 function App() {
   return (
-    <div>
-      <SideBarMenu/>
-    </div>
-    
+    <SideBarMenu/>
   );
 }
 

@@ -5,6 +5,7 @@ import VideogameSlider from "./VideogameSlider";
 import SliderUpcoming from "./SliderUpcoming";
 import { Dropdown } from "react-bootstrap";
 import { FormGroup, FormControlLabel, Checkbox } from "@mui/material";
+import TopRatedThisYear from "./TopRatedThisYear";
 
 function SideBarMenu() {
   const [theme, setTheme] = useState('light');
@@ -22,15 +23,16 @@ function SideBarMenu() {
   return (
     <div className="container-fluid">
       <div className="row">
-        <button
+        
+        <div className={`col-auto col-md-2 min-vh-100 ${theme === 'light' ? 'bg-dark' : 'bg-gray-900'}`} 
+          style={{ position: 'sticky', top: '0', height: '100vh', overflowY: 'auto' }}
+        >
+          <button
           onClick={toggleTheme}
           className={`p-2 ${theme === 'light' ? 'bg-dark text-white' : 'bg-gray-900 text-white'}`}
         >
           Switch to {theme === "light" ? "Dark" : "Light"} Mode
         </button>
-        <div className={`col-auto col-md-2 min-vh-100 ${theme === 'light' ? 'bg-dark' : 'bg-gray-900'}`} 
-          style={{ position: 'sticky', top: '0', height: '100vh', overflowY: 'auto' }}
-        >
           <a className="text-decoration-none text-white d-flex align-items-center">
             <span className="ms-1 fs-3">Browse</span>
           </a>
@@ -93,6 +95,7 @@ function SideBarMenu() {
         <div className={`col-md-10 ${theme === 'light' ? 'bg-gray-100' : 'bg-black'}`}>
           <VideogameSlider />
           <SliderUpcoming />
+          <TopRatedThisYear/>
         </div>
       </div>
     </div>
