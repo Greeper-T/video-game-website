@@ -4,7 +4,7 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import VideogameSlider from "./VideogameSlider";
 import SliderUpcoming from "./SliderUpcoming";
 import { Dropdown } from "react-bootstrap";
-import { FormGroup, FormControlLabel, Checkbox } from "@mui/material";
+import { FormGroup, FormControlLabel, Checkbox, TextField } from "@mui/material";
 import TopRatedThisYear from "./TopRatedThisYear";
 
 function SideBarMenu() {
@@ -19,6 +19,9 @@ function SideBarMenu() {
   useEffect(() => {
     document.documentElement.className = theme;
   }, [theme]);
+  
+
+  const [searchQuery, setSearchQuery] = useState('');
 
   return (
     <div className="container-fluid">
@@ -33,10 +36,6 @@ function SideBarMenu() {
         >
           Switch to {theme === "light" ? "Dark" : "Light"} Mode
         </button>
-        <div
-  className={`col-auto col-md-2 min-vh-100 ${theme === 'light' ? 'bg-dark' : 'bg-gray-900'}`}
-  style={{ position: 'sticky', top: '0', height: '100vh', overflowY: 'auto' }}
->
   <a className="text-decoration-none text-white d-flex align-items-center">
     <span className="ms-1 fs-3">Browse</span>
   </a>
@@ -104,16 +103,25 @@ function SideBarMenu() {
     <i className="bi bi-filter"></i>
     <span className="ms-2">Filter</span>
   </button>
-</div>
+  </div>
 
 
-        <div className={`col-md-10 ${theme === 'light' ? 'bg-gray-100' : 'bg-black'}`}>
+        <div className={`col-md-10 ${theme === 'light' ? 'bg-gray-100' : 'bg-black' }`}>
+        <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
+          <TextField
+            variant="outlined"
+            placeholder="Search..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            style={{ width: '60%' }} // Set width as needed
+          />
+        </div>
           <VideogameSlider />
           <SliderUpcoming />
           <TopRatedThisYear/>
         </div>
       </div>
-    </div>
+      </div>
   );
 }
 
