@@ -5,7 +5,9 @@ import VideogameSlider from "./VideogameSlider";
 import SliderUpcoming from "./SliderUpcoming";
 import FilteredGames from "./FilteredGames"; // Assuming you have this component set up for filtering
 import { Dropdown } from "react-bootstrap";
-import { FormGroup, FormControlLabel, Checkbox } from "@mui/material";
+import { FormGroup, FormControlLabel, Checkbox, TextField } from "@mui/material";
+import TopRatedThisYear from "./TopRatedThisYear";
+
 
 function SideBarMenu() {
   const [theme, setTheme] = useState('light');
@@ -37,6 +39,9 @@ function SideBarMenu() {
   useEffect(() => {
     document.documentElement.className = theme;
   }, [theme]);
+  
+
+  const [searchQuery, setSearchQuery] = useState('');
 
   return (
     <div className="container-fluid">
@@ -45,15 +50,15 @@ function SideBarMenu() {
           style={{ position: 'sticky', top: '0', height: '100vh', overflowY: 'auto' }}
         >
           <button
-            onClick={toggleTheme}
-            className={`p-2 ${theme === 'light' ? 'bg-dark text-white' : 'bg-gray-900 text-white'}`}
-          >
-            Switch to {theme === "light" ? "Dark" : "Light"} Mode
-          </button>
-          <a className="text-decoration-none text-white d-flex align-items-center">
-            <span className="ms-1 fs-3">Browse</span>
-          </a>
 
+          onClick={toggleTheme}
+          className={`p-2 ${theme === 'light' ? 'bg-dark text-white' : 'bg-gray-900 text-white'}`}
+        >
+          Switch to {theme === "light" ? "Dark" : "Light"} Mode
+        </button>
+  <a className="text-decoration-none text-white d-flex align-items-center">
+    <span className="ms-1 fs-3">Browse</span>
+  </a>
           {/* Console Dropdown */}
           <div style={{ marginBottom: consoleOpen ? '220px' : '0' }}>
             <Dropdown onToggle={(isOpen) => setConsoleOpen(isOpen)} show={consoleOpen}>
@@ -78,7 +83,6 @@ function SideBarMenu() {
               </Dropdown.Menu>
             </Dropdown>
           </div>
-
           {/* Genre Dropdown */}
           <div style={{ marginBottom: genreOpen ? '200px' : '0' }}>
             <Dropdown onToggle={(isOpen) => setGenreOpen(isOpen)} show={genreOpen}>
@@ -107,7 +111,6 @@ function SideBarMenu() {
               </Dropdown.Menu>
             </Dropdown>
           </div>
-
           {/* Sort Button */}
           <button
             className={`text-white fs-4 ${theme === 'light' ? 'bg-dark' : 'bg-dark'} border-0`}
@@ -118,13 +121,22 @@ function SideBarMenu() {
           </button>
         </div>
 
-        <div className={`col-md-10 ${theme === 'light' ? 'bg-gray-100' : 'bg-black'}`}>
+        <div className={`col-md-10 ${theme === 'light' ? 'bg-gray-100' : 'bg-black' }`}>
+        <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
+          <TextField
+            variant="outlined"
+            placeholder="Search..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            style={{ width: '60%' }} // Set width as needed
+          />
+        </div>
           <VideogameSlider />
           <SliderUpcoming />
           <FilteredGames selectedPlatforms={selectedPlatforms} selectedGenres={selectedGenres} />
         </div>
       </div>
-    </div>
+      </div>
   );
 }
 
