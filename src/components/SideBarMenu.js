@@ -15,7 +15,6 @@ function SideBarMenu() {
   const [genreOpen, setGenreOpen] = useState(false);
   const [selectedPlatforms, setSelectedPlatforms] = useState([]);
   const [selectedGenres, setSelectedGenres] = useState([]);
-
   const toggleTheme = () => {
     setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
   };
@@ -121,19 +120,23 @@ function SideBarMenu() {
           </button>
         </div>
 
-        <div className={`col-md-10 ${theme === 'light' ? 'bg-gray-100' : 'bg-black' }`}>
-        <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
-          <TextField
-            variant="outlined"
-            placeholder="Search..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            style={{ width: '60%' }} // Set width as needed
-          />
-        </div>
+        <div className={`col-md-10 ${theme === 'light' ? 'bg-gray-100' : 'bg-black'}`}>
+          <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
+            <TextField
+              variant="outlined"
+              placeholder="Search..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              style={{ width: '60%' }}
+            />
+          </div>
           <VideogameSlider />
           <SliderUpcoming />
-          <FilteredGames selectedPlatforms={selectedPlatforms} selectedGenres={selectedGenres} />
+          <FilteredGames
+  selectedPlatforms={selectedPlatforms}
+  selectedGenres={selectedGenres}
+  searchQuery={searchQuery}
+/>
         </div>
       </div>
       </div>
