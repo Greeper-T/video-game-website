@@ -133,6 +133,7 @@ function SideBarMenu() {
         </div>
           <VideogameSlider />
           <SliderUpcoming />
+          <TopRatedThisYear/>
           <FilteredGames selectedPlatforms={selectedPlatforms} selectedGenres={selectedGenres} />
         </div>
       </div>
