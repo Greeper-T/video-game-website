@@ -4,7 +4,7 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import VideogameSlider from "./VideogameSlider";
 import SliderUpcoming from "./SliderUpcoming";
 import FilteredGames from "./FilteredGames"; // Assuming you have this component set up for filtering
-import { Dropdown } from "react-bootstrap";
+import { Dropdown, Button } from "react-bootstrap";
 import { FormGroup, FormControlLabel, Checkbox, TextField } from "@mui/material";
 import TopRatedThisYear from "./TopRatedThisYear";
 
@@ -15,7 +15,7 @@ function SideBarMenu() {
   const [genreOpen, setGenreOpen] = useState(false);
   const [selectedPlatforms, setSelectedPlatforms] = useState([]);
   const [selectedGenres, setSelectedGenres] = useState([]);
-
+  const [search, setSearch] = useState('')
   const toggleTheme = () => {
     setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
   };
@@ -42,6 +42,10 @@ function SideBarMenu() {
   
 
   const [searchQuery, setSearchQuery] = useState('');
+
+  const handleSearch = () => {
+    setSearch((prevSearch)=>(searchQuery.trim()));
+  };
 
   return (
     <div className="container-fluid">
@@ -121,17 +125,25 @@ function SideBarMenu() {
           </button>
         </div>
 
-        <div className={`col-md-10 ${theme === 'light' ? 'bg-gray-100' : 'bg-black' }`}>
-        <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
-          <TextField
-            variant="outlined"
-            placeholder="Search..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            style={{ width: '60%' }} // Set width as needed
-          />
-        </div>
-          <VideogameSlider />
+        <div className={`col-md-10 ${theme === 'light' ? 'bg-gray-100' : 'bg-black'}`}>
+      <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
+        <TextField
+          variant="outlined"
+          placeholder="Search..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          style={{ width: '60%' }}
+        />
+        <Button 
+          variant="contained"
+          onClick={handleSearch}
+          style={{ marginLeft: '10px' }}
+        >
+          Search
+        </Button>
+      </div>
+        <div>
+        <VideogameSlider />
           <SliderUpcoming />
           <TopRatedThisYear/>
           <FilteredGames selectedPlatforms={selectedPlatforms} selectedGenres={selectedGenres} />
