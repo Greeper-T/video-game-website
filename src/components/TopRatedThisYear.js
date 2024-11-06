@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import Slider from "react-slick";
 import { Card } from "react-bootstrap";
 import "slick-carousel/slick/slick.css";
@@ -63,7 +64,8 @@ function TopRatedThisYear() {
             {games.length > 0 ? (
                 <Slider {...settings}>
                     {games.map((game) => (
-                        <Card style={{ width: "10rem"}} className="dark:bg-gray-600">
+                        <Link key={game.id} to={`/game/${game.id}`}>
+                            <Card style={{ width: "10rem"}} className="dark:bg-gray-600">
                             <Card.Img variant="top" src={game.background_image} alt="no image:("/>
                             <Card.Body>
                                 <Card.Title className="dark:text-white">{game.name}</Card.Title>
@@ -72,6 +74,7 @@ function TopRatedThisYear() {
                                 </Card.Text>
                             </Card.Body>
                         </Card>
+                        </Link>
                     ))}
                 </Slider>
             ) : (

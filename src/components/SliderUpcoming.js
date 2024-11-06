@@ -7,7 +7,7 @@
 
     function SliderUpcoming() {
         const [games, setGames] = useState([]);
-        const apiUrl = "https://api.rawg.io/api/games?key=914505b770ea4da29ba05daa4e0899cf&dates=2024-11-01,2025-01-01&ordering=released";
+        const apiUrl = "https://api.rawg.io/api/games?key=914505b770ea4da29ba05daa4e0899cf&dates=2024-11-07,2025-01-01";
         
         useEffect(() => {
             const fetchGameData = async () => {
