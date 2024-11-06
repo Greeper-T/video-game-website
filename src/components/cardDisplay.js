@@ -9,7 +9,11 @@ function cardDisplay(){
         <div className="container-fluid">
             <div className="row">
                 <div className={`col-auto col-md-5 min-vh-100`}>
-                    <Image src="" fluid />;
+                                        <Image
+                                            src="https://business.wisc.edu/wp-content/uploads/2021/07/WSB_BlogGraphic_Enderle_1.21.jpg"
+                                            fluid rounded
+                                            className="img-fluid"
+                                        />
                 </div>    
             </div>
         </div>
