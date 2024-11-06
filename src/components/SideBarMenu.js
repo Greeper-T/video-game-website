@@ -141,6 +141,7 @@ function SideBarMenu() {
         >
           Search
         </Button>
+        
       </div>
         <div>
         <VideogameSlider />
@@ -150,6 +151,7 @@ function SideBarMenu() {
         </div>
       </div>
       </div>
+    </div>
   );
 }
 
