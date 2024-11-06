@@ -145,12 +145,8 @@ function SideBarMenu() {
         <div>
         <VideogameSlider />
           <SliderUpcoming />
-          <FilteredGames
-  selectedPlatforms={selectedPlatforms}
-  selectedGenres={selectedGenres}
-  searchQuery={searchQuery}/>
-        </div>
-          
+          <TopRatedThisYear/>
+          <FilteredGames selectedPlatforms={selectedPlatforms} selectedGenres={selectedGenres} />
         </div>
       </div>
       </div>
