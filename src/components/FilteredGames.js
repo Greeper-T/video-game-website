@@ -26,11 +26,8 @@ function FilteredGames({ selectedPlatforms, selectedGenres, searchQuery }) {
     const matchesGenre = selectedGenres.length
       ? game.genres.some((g) => selectedGenres.includes(g.name))
       : true;
-    const matchesSearch = searchQuery
-      ? game.name.toLowerCase().includes(searchQuery.toLowerCase())
-      : true;
 
-    return matchesPlatform && matchesGenre && matchesSearch;
+    return matchesPlatform && matchesGenre;
   });
 
   return (
