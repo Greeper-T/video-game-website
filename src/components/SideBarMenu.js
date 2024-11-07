@@ -7,6 +7,7 @@ import FilteredGames from "./FilteredGames";
 import { Dropdown, Button } from "react-bootstrap";
 import { FormGroup, FormControlLabel, Checkbox, TextField } from "@mui/material";
 import TopRatedThisYear from "./TopRatedThisYear";
+import axios from "axios";
 
 function SideBarMenu() {
   const [theme, setTheme] = useState('light');
@@ -17,6 +18,8 @@ function SideBarMenu() {
   const [console, setConsole] = useState(false);
   const [genre, setGenre] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
+  const [beenSearched, setBeenSearched] = useState(false)
 
   const toggleTheme = () => {
     setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
@@ -40,14 +43,22 @@ function SideBarMenu() {
     document.documentElement.className = theme;
   }, [theme]);
 
-  // Update console and genre based on selectedPlatforms and selectedGenres
   useEffect(() => {
     setConsole(selectedPlatforms.length > 0);
     setGenre(selectedGenres.length > 0);
   }, [selectedPlatforms, selectedGenres]);
 
-  const handleSearch = () => {
-    // Implement search functionality based on searchQuery here if needed
+  const handleSearch = async () => {
+    try {
+      const response = await axios.get(`https://api.rawg.io/api/games?key=914505b770ea4da29ba05daa4e0899cf&search=${searchQuery}`);
+      setSearchResults(response.data.results);
+      setBeenSearched(true)
+      if (searchResults.length < 1){
+        setBeenSearched(false)
+      }
+    } catch (error) {
+      console.error("Error fetching search results:", error);
+    }
   };
 
   return (
@@ -65,57 +76,46 @@ function SideBarMenu() {
           <a className="text-decoration-none text-white d-flex align-items-center">
             <span className="ms-1 fs-3">Browse</span>
           </a>
-          <div style={{ marginBottom: consoleOpen ? '220px' : '0' }}>
-            <Dropdown onToggle={(isOpen) => setConsoleOpen(isOpen)} show={consoleOpen}>
-              <Dropdown.Toggle
-                className="text-white fs-4 bg-dark border-0"
-                id="consoleDropdown"
-              >
-                <i className="bi bi-controller"></i>
-                <span className="ms-2">Console</span>
-              </Dropdown.Toggle>
-              <Dropdown.Menu className="bg-dark text-white">
-                <FormGroup>
-                  {["Nintendo", "Play Station", "Xbox", "PC", "Mobile"].map((label) => (
-                    <FormControlLabel
-                      key={label}
-                      control={<Checkbox value={label} onChange={handlePlatformChange} style={{ color: 'white' }} />}
-                      label={label}
-                      className="text-white"
-                    />
-                  ))}
-                </FormGroup>
-              </Dropdown.Menu>
-            </Dropdown>
-          </div>
-          <div style={{ marginBottom: genreOpen ? '200px' : '0' }}>
-            <Dropdown onToggle={(isOpen) => setGenreOpen(isOpen)} show={genreOpen}>
-              <Dropdown.Toggle
-                className="text-white fs-4 bg-dark border-0"
-                id="genreDropdown"
-              >
-                <i className="bi bi-joystick"></i>
-                <span className="ms-2">Genres</span>
-              </Dropdown.Toggle>
-              <Dropdown.Menu className="bg-dark text-white">
-                <FormGroup>
-                  {[
-                    "Action", "Indie", "Adventure", "RPG", "Strategy", "Shooter", "Casual", "Simulation", 
-                    "Puzzle", "Arcade", "Platformer", "Racing", "Massively Multiplayer", "Sports", 
-                    "Fighting", "Family", "Board Games", "Educational", "Card"
-                  ].map((label) => (
-                    <FormControlLabel
-                      key={label}
-                      control={<Checkbox value={label} onChange={handleGenreChange} style={{ color: 'white' }} />}
-                      label={label}
-                      className="text-white"
-                    />
-                  ))}
-                </FormGroup>
-              </Dropdown.Menu>
-            </Dropdown>
-          </div>
+
+          <Dropdown>
+            <Dropdown.Toggle className="text-white fs-4 bg-dark border-0" id="consoleDropdown">
+              <i className="bi bi-controller"></i>
+              <span className="ms-2">Console</span>
+            </Dropdown.Toggle>
+            <Dropdown.Menu className="bg-dark text-white">
+              <FormGroup>
+                {["Nintendo", "Play Station", "Xbox", "PC", "Mobile"].map((label) => (
+                  <FormControlLabel
+                    key={label}
+                    control={<Checkbox value={label} onChange={handlePlatformChange} style={{ color: 'white' }} />}
+                    label={label}
+                    className="text-white"
+                  />
+                ))}
+              </FormGroup>
+            </Dropdown.Menu>
+          </Dropdown>
+
+          <Dropdown>
+            <Dropdown.Toggle className="text-white fs-4 bg-dark border-0" id="genreDropdown">
+              <i className="bi bi-joystick"></i>
+              <span className="ms-2">Genres</span>
+            </Dropdown.Toggle>
+            <Dropdown.Menu className="bg-dark text-white">
+              <FormGroup>
+                {["Action", "Indie", "Adventure", "RPG", "Strategy", "Shooter", "Casual", "Simulation", "Puzzle", "Arcade", "Platformer", "Racing", "Massively Multiplayer", "Sports", "Fighting", "Family", "Board Games", "Educational", "Card"].map((label) => (
+                  <FormControlLabel
+                    key={label}
+                    control={<Checkbox value={label} onChange={handleGenreChange} style={{ color: 'white' }} />}
+                    label={label}
+                    className="text-white"
+                  />
+                ))}
+              </FormGroup>
+            </Dropdown.Menu>
+          </Dropdown>
         </div>
+
         <div className={`col-md-10 ${theme === 'light' ? 'bg-gray-100' : 'bg-black'}`}>
           <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
             <TextField
@@ -123,25 +123,34 @@ function SideBarMenu() {
               placeholder="Search..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              style={{ width: '60%' }}
+              onClick={handleSearch}
+              style={{ width: '60%', backgroundColor: theme === 'dark' ? '#333' : '#fff', color: theme === 'dark' ? '#fff' : '#000' }}
+              InputProps={{
+                style: { color: theme === 'dark' ? '#fff' : '#000' }
+              }}
             />
-            <Button 
-              variant="contained"
+            <button 
+              className="dark:text-white"
               onClick={handleSearch}
               style={{ marginLeft: '10px' }}
             >
               Search
-            </Button>
+            </button>
           </div>
+          
           <div>
-            {console || genre ? (
-              <FilteredGames selectedPlatforms={selectedPlatforms} selectedGenres={selectedGenres} />
+            {searchQuery ? (
+              <FilteredGames gamez={beenSearched} selectedPlatforms={selectedPlatforms} selectedGenres={selectedGenres} searchQuery={searchQuery} />
             ) : (
-              <>
-                <VideogameSlider /> 
-                <SliderUpcoming />
-                <TopRatedThisYear />
-              </>
+              console || genre ? (
+                <FilteredGames selectedPlatforms={selectedPlatforms} selectedGenres={selectedGenres} />
+              ) : (
+                <>
+                  <VideogameSlider /> 
+                  <SliderUpcoming />
+                  <TopRatedThisYear />
+                </>
+              )
             )}
           </div>
         </div>
