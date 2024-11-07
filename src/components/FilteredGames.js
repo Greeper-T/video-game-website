@@ -1,10 +1,16 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Card } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 function FilteredGames({ selectedPlatforms, selectedGenres }) {
   const [games, setGames] = useState([]);
   const baseApiUrl = "https://api.rawg.io/api/games?key=914505b770ea4da29ba05daa4e0899cf";
+  const navigate = useNavigate();
+
+     const handleCardClick = (gameId) => {
+        navigate(`/game/${gameId}`);
+    };
 
   // Map platforms and genres to API values
   const platformMapping = {
@@ -64,7 +70,7 @@ function FilteredGames({ selectedPlatforms, selectedGenres }) {
       <div className="row">
         {games.length > 0 ? (
           games.map((game) => (
-            <div className="col-6 col-md-4 col-lg-3 mb-4" key={game.id}>
+            <div className="col-6 col-md-4 col-lg-3 mb-4" key={game.id} onClick={() => handleCardClick(game.id)}>
               <Card style={{ width: "100%" }} className="dark:bg-gray-600">
                 <Card.Img variant="top" src={game.background_image} alt="Game Image" />
                 <Card.Body>
