@@ -4,10 +4,16 @@
     import { Card } from "react-bootstrap";
     import "slick-carousel/slick/slick.css";
     import "slick-carousel/slick/slick-theme.css";
+    import { useNavigate } from "react-router-dom";
 
     function SliderUpcoming() {
         const [games, setGames] = useState([]);
-        const apiUrl = "https://api.rawg.io/api/games?key=914505b770ea4da29ba05daa4e0899cf&dates=2024-11-01,2025-01-01&ordering=released";
+        const apiUrl = "https://api.rawg.io/api/games?key=914505b770ea4da29ba05daa4e0899cf&dates=2024-11-07,2025-01-01";
+        const navigate = useNavigate();
+
+     const handleCardClick = (gameId) => {
+        navigate(`/game/${gameId}`);
+    };
         
         useEffect(() => {
             const fetchGameData = async () => {
@@ -61,7 +67,7 @@
                 {games.length > 0 ? (
                     <Slider {...settings}>
                         {games.map((game) => (
-                            <Card style={{ width: "10rem"}} className="dark:bg-gray-600">
+                            <Card style={{ width: "10rem"}} className="dark:bg-gray-600" onClick={() => handleCardClick(game.id)}>
                                 <Card.Img variant="top" src={game.background_image} alt="no image:("/>
                                 <Card.Body>
                                     <Card.Title className="dark:text-white">{game.name}</Card.Title>

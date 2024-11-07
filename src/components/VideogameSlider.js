@@ -3,10 +3,16 @@ import axios from "axios";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { useNavigate } from "react-router-dom";
 
 function VideogameSlider() {
     const [games, setGames] = useState([]);
     const apiUrl = "https://api.rawg.io/api/games?key=914505b770ea4da29ba05daa4e0899cf";
+    const navigate = useNavigate();
+
+     const handleCardClick = (gameId) => {
+        navigate(`/game/${gameId}`);
+    };
 
     useEffect(() => {
         const fetchGameData = async () => {
@@ -63,7 +69,7 @@ function VideogameSlider() {
             {games.length > 0 ? (
                 <Slider {...settings}>
                     {games.map((game) => (
-                        <div key={game.id} className="bg-white shadow-md rounded-lg overflow-hidden dark:bg-gray-600">
+                        <div key={game.id} className="bg-white shadow-md rounded-lg overflow-hidden dark:bg-gray-600" onClick={() => handleCardClick(game.id)}>
                             <img 
                                 src={game.background_image} 
                                 alt={`${game.name} cover`} 
