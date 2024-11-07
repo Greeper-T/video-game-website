@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Slider from "react-slick";
 import { Card } from "react-bootstrap";
 import "slick-carousel/slick/slick.css";
@@ -11,6 +11,11 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 function TopRatedThisYear() {
     const [games, setGames] = useState([]);
     const apiUrl = "https://api.rawg.io/api/games?key=914505b770ea4da29ba05daa4e0899cf&dates=2024-01-01,2024-12-31&ordering=-rating";
+    const navigate = useNavigate();
+
+     const handleCardClick = (gameId) => {
+        navigate(`/game/${gameId}`);
+    };
     
     useEffect(() => {
         const fetchGameData = async () => {
@@ -58,23 +63,28 @@ function TopRatedThisYear() {
         prevArrow: <SamplePrevArrow />
     };
 
+   
+
     return (
         <div className="container mx-auto mt-10 px-4">
             <h1 className="text-3xl font-bold text-center mb-6 dark:text-white">Top Rated This Year</h1>
             {games.length > 0 ? (
                 <Slider {...settings}>
                     {games.map((game) => (
-                        <Link key={game.id} to={`/game/${game.id}`}>
-                            <Card style={{ width: "10rem"}} className="dark:bg-gray-600">
-                            <Card.Img variant="top" src={game.background_image} alt="no image:("/>
+                        <Card 
+                            key={game.id} // Add a unique key here
+                            style={{ width: "10rem" }} 
+                            className="dark:bg-gray-600" 
+                            onClick={() => handleCardClick(game.id)}
+                        >
+                            <Card.Img variant="top" src={game.background_image} alt="no image :("/>
                             <Card.Body>
                                 <Card.Title className="dark:text-white">{game.name}</Card.Title>
                                 <Card.Text>
-                                    {game.rating}/{game.rating_top}    <i class="bi bi-star"></i>
+                                    {game.rating}/{game.rating_top} <i className="bi bi-star"></i>
                                 </Card.Text>
                             </Card.Body>
                         </Card>
-                        </Link>
                     ))}
                 </Slider>
             ) : (
